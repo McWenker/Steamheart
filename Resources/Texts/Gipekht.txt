@@ -1,0 +1,10 @@
+GIPEKHT - This once nomadic, insectoid race is well suited to enduring Syrn's harsh central deserts. Thick-headed as they are thick-skinned, they boast strong defense and the high magic, but their move speed is very low. Lead by the Marraht Dynasty and its push for settlment, the Gipekht Empire has grown to be the most formidable civilization on the continent.
+
+Starting Stats:
++42 MHP +12 MMP +17 MGP
++41 MEL +32 RNG +34 MAG
++36 DEF +65 MDF
++79 SPD +3 MOV +4 JMP
+
+Specials:
+Carapace - Additional 10% chance to ignore adverse effects.

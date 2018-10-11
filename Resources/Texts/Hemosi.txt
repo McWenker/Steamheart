@@ -1,0 +1,10 @@
+HEMOSI - These deeply spiritual, tribal people hail from the western archipelagos. Frail yet light-footed, they are quite proficient in the magical arts. They once flourished alongside the Aetroc and Gi'pekht cultures, but past wars and religious disputes drove the Hemosi into seclusion. They are lead by the druid Bavgor.
+
+Starting Stats:
++28 MHP +17 MMP +14 MGP
++36 MEL +48 RNG +52 MAG
++30 DEF +58 MDF 
++108 SPD +5 MOV +5 JMP
+
+Specials:
+Harmony - Negates adverse tile effects.

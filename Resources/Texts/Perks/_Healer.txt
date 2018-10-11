@@ -1,0 +1,5 @@
+HEALER
+
+Abilities Learned
+Cure: Heal an allied unit (range 6).
+Shard of Light: Deal holy damage (range 6).

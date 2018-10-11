@@ -1,0 +1,5 @@
+LEVY
+
+Abilities Learned
+Pierce: Deal melee weapon damage. Apply Sunder I for 2 rounds.
+Slam: Deal reduced melee weapon damage in an area (cone 2).

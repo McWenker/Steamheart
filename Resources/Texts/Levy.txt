@@ -1,0 +1,11 @@
+LEVY - The basic melee fighter. Capable of soaking up damage, but cannot attack well at range.
+
+Stat Modifiers:
++20 MHP
++10 MEL +5 RNG
++10 DEF +5 MDF +5 RES
++2% CRIT
+
+Starting Abilities:
+-Pierce
+-Slam

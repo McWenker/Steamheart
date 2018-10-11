@@ -1,0 +1,6 @@
+TOUGH
++MEL
++DEF
+
+Abilities Learned
+Low Blow: Deal reduced melee weapon damage. Inflict Stun I for 1 round.

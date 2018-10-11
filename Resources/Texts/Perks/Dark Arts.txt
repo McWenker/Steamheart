@@ -1,0 +1,6 @@
+DARK ARTS
+-MHP
+++MAG
+
+Abilities Learned
+Searing Mark: Inflicts Burn I and Mana-Burn I for 2 rounds (range 3).

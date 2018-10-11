@@ -1,0 +1,6 @@
+FOOTWORK
+++MEL
++MOV
+
+Abilities Learned
+Footwork: Apply Haste I to self for 3 turns. Next Melee attack has increased chance to crit.

@@ -1,0 +1,7 @@
+VETERANCY
+++MHP
+++MEL
+++DEF
+
+Abilities Learned
+Measured Charge: Move to target area, deal melee damage to all enemies around target area (radius 1).

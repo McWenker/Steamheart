@@ -1,0 +1,7 @@
+ADEPT
+
+Abilities Learned
+Ember: Deal entropy damage (range 4).
+Icicle: Deal enthalpy damage (range 5).
+Pebble: Deal nature damage (range 5).
+Spark: Deal arcane damage (range 6).

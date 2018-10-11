@@ -1,0 +1,10 @@
+ASCENDANCY
+++MMP
+++MAG
+++MDF
+
+Abilities Learned
+Blaze: Deals entropy damage. Inflicts Burn I for 2 rounds (range 4).
+Frost: Deals enthalpy damage. Inflicts Slow I for 2 rounds (range 5).
+Rumble: Deals nature damage. Inflicts Sunder I for 3 rounds (range 5).
+Shock: Deals arcane damage. Inflicts Stun I for 1 round (range 6).

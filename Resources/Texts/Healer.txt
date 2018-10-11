@@ -1,0 +1,10 @@
+HEALER - The basic support class. They are force multipliers in large engagements.
+
+Stat Modifiers:
++10 MHP +10 MMP +5 MGP
++4 MEL +5 MAG
++5 DEF +10 MDF
+
+Starting Abilities:
+-Cure
+-Shard of Light

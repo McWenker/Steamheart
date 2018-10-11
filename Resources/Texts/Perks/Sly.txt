@@ -1,0 +1,6 @@
+SLY
++RNG
++EVD
+
+Abilities Learned
+Poison Shot: Deal ranged weapon damage. Inflict Poison I for 3 rounds.

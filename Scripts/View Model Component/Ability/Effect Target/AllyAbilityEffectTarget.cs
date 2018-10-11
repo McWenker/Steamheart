@@ -1,0 +1,22 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class AllyAbilityEffectTarget : AbilityEffectTarget
+{
+    Alliance alliance;
+
+    private void Start()
+    {
+        alliance = GetComponentInParent<Alliance>();
+    }
+
+    public override bool IsTarget(Tile tile)
+    {
+        if (tile == null || tile.content == null)
+            return false;
+
+        Alliance other = tile.content.GetComponentInChildren<Alliance>();
+        return alliance.IsMatch(other, Targets.Ally);
+    }
+}

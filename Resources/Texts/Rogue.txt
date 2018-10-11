@@ -1,0 +1,11 @@
+ROGUE - The basic mobile damage dealer. Versatile, effective; dead quickly if caught.
+
+Stat Modifiers:
++12 MHP
++7 MEL +7 RNG
++4 DEF +5 MDF
++3 MOV +5% CRIT +5% EVD
+
+Starting Abilities:
+-Cheap Shot
+-Wound

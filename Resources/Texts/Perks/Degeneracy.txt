@@ -1,0 +1,6 @@
+DEGENERACY
++MEL +RNG
++EVD +CRIT
+
+Abilities Learned
+Stealth: Inflicts Slow I to self for 2 rounds. Apply Stealth I for 4 rounds.

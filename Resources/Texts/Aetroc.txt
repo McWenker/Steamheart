@@ -1,0 +1,10 @@
+AETROC - Hulking, brutish lizardmen hailing from the eastern ashlands. Extremely warlike, their culture is sustained by bloodshed, raiding, and slavery. Slow and strong in melee, they have the highest defense, but their thick scales are still susceptible to magic attacks. They are currently united under Warchief Brannak, but rival chieftains are always seeking control of the hordes.
+
+Starting Stats:
++37 MHP +10 MMP +16 MGP
++47 MEL +36 RNG +38 MAG
++41 DEF +38 MDF 
++88 SPD +4 MOV +3 JMP
+
+Specials:
+Brutish - Critical hits deal 20% of their damage as Grit damage.

@@ -1,0 +1,6 @@
+PRAGMATISM
++MEL
+++DEF, +MDF
+
+Abilities Learned
+Ward: Applies Reinforce I to target ally for 3 rounds (range 2).

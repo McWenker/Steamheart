@@ -1,0 +1,10 @@
+VYRNIAN - This hardy, insular race is well-accustomed to warfare. Their life of insurgency makes for disciplined warriors and skilled tacticians. Well rounded, they have the highest Grit. For recent generations they have been the victims of Aetroc and Gi'pehkt slavers. Since their recent exodus to the Slateknife Mountains, their resistance has grown anew.
+
+Starting Stats:
++30 MHP +14 MMP +18 MGP
++40 MEL +42 RNG +38 MAG
++36 DEF +40 MDF 
++95 SPD +4 MOV +4 JMP
+
+Specials:
+Insurgent - Grit damage reduced by 20% for each adjacent Vyrnian. Increases the range of beneficial auras and AoE effects by 1.

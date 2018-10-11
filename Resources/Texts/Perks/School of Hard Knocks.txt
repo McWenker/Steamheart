@@ -1,0 +1,6 @@
+SCHOOL OF HARD KNOCKS
+++MEL
++DEF
+
+Abilities Learned
+Undermine: Inflict Weaken I and Slow I for 3 rounds (melee range).

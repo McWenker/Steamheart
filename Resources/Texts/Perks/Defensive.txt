@@ -1,0 +1,6 @@
+DEFENSIVE
++MHP
+++DEF
+
+Abilities Learned
+Guard: Apply Reinforce I to self for 2 rounds. Self-heal Grit.

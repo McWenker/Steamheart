@@ -1,0 +1,6 @@
+AGGRESSIVE
+++MEL
++SPD
+
+Abilities Learned
+Bleed: Deal reduced melee weapon damage. Inflict Bleed I for 3 rounds.

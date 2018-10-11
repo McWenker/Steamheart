@@ -1,0 +1,6 @@
+TENACITY
++MHP, +MGP
++DEF, +MDF
+
+Abilities Learned
+Rally: Heal and grit heal allies in target area (radius 2).

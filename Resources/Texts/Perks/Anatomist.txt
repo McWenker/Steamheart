@@ -1,0 +1,6 @@
+ANATOMIST
+++RNG
++CRIT
+
+Abilities Learned
+Pressure Point: Deal increased ranged weapon damage. Inflict Stun I for 1 round.

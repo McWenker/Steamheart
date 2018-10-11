@@ -1,0 +1,10 @@
+AVONI - A proud theocratic culture living in the forests of Cape Vryn. Quick to anger, but immensely loyal, they form lifelong bonds. The fastest race - and the only capable of flight - they are well-rounded utilitarians. Once the ruling empire of the continent's north, their long wars with the Gipekht lead to the rise of the Aetroc hordes and the dissolution of the Old Vyrnian Kingdoms.
+
+Starting Stats:
++26 MHP +16 MMP +12 MGP
++38 MEL +55 RNG +48 MAG
++27 DEF +50 MDF 
++110 SPD +5 MOV +6 JMP
+
+Specials:
+Wings - Allows flight.

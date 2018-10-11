@@ -1,0 +1,6 @@
+CLEMENCY
+++MHP, ++MMP, +MGP
+++MDF
+
+Abilities Learned
+Pacify: Apply Stun II to target for 2 rounds (range 3).

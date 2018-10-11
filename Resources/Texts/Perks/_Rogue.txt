@@ -1,0 +1,5 @@
+ROGUE
+
+Abilities Learned
+Cheap Shot: Deal reduced melee weapon damage. Inflict Slow I for 2 turns.
+Wound: Deal reduced melee weapon damage. Inflict Weaken I for 2 turns.

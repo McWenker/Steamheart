@@ -1,0 +1,6 @@
+PEACE UPON YOU
++MMP
++DEF, +MDF
+
+Abilities Learned
+Blessing: Applies Reinforce I and Mend I to target ally for 2 rounds (melee range).

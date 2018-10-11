@@ -1,0 +1,6 @@
+EXOTIC METHODS
++MGP
++DEF, +MDF
+
+Abilities Learned
+Leech Seed: Inflict Poison I on target enemy (range 3). Apply Mend I to self.
