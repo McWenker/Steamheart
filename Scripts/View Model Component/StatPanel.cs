@@ -34,7 +34,7 @@ public class StatPanel : MonoBehaviour
 			mpLabel.text = string.Format("MP {0} / {1}", stats[StatTypes.MP], stats[StatTypes.MMP]);
 			gpLabel.text = string.Format("GR {0} / {1}", stats[StatTypes.GP], stats[StatTypes.MGP]);
 			lvLabel.text = string.Format("LV. {0}", stats[StatTypes.LVL]);
-			joLabel.text = string.Format("{0}", obj.GetComponentInChildren<Perk>().perkName);
+			//joLabel.text = string.Format("{0}", obj.GetComponentInChildren<Perk>().perkName);
 			raLabel.text = string.Format("{0}", obj.GetComponentInChildren<Race>().raceName);
 		}
 	}

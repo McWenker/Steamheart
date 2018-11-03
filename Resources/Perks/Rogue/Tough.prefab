@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statDict:
     m_keys: 03000000080000000b000000
-    m_values: 050000000400000004000000
+    m_values: 050000000500000005000000
   perkName: Tough
   learnedAbilities:
   - {fileID: 114167256849436454, guid: 4162c3774ad3c1d47bffe34bf36c5f53, type: 2}

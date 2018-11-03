@@ -16,6 +16,7 @@ public class PerkTreeVertex : MonoBehaviour
     [SerializeField] Sprite deactivatedPerkSprite;
     [SerializeField] Sprite activatedPerkSprite;
     [SerializeField] ToggleGroup cardinals;
+    [SerializeField] bool isBase;
     Toggle toggle;
     bool isLearned = false;
     bool canBeUnLearned = true;
@@ -46,26 +47,27 @@ public class PerkTreeVertex : MonoBehaviour
 
     public void ChangeDesc()
     {
-        unitCreatorMenu.SetPerkDesc(perkName);
+        if(perkName != "" && perkName != null)
+            unitCreatorMenu.SetPerkDesc(perkName);
     }
 
     public void Click()
     {
         if(CheckAvailability())
         {
-            if (perkName != "")
+            if (perkName != "" && perkName != null)
             {
                 if (!isLearned)
                 {
                     IsLearned = true;
-                    unitCreatorMenu.AddPerk(perkName);
+                    unitCreatorMenu.AddPerk(perkName, perkCardinal.ToString());
                 }
                 else if (canBeUnLearned)
                 {
                     if (CheckSubPerks())
                     {
                         IsLearned = false;
-                        unitCreatorMenu.RemovePerk(perkName);
+                        unitCreatorMenu.RemovePerk(perkName, perkCardinal.ToString());
                     }
                 }
             }
@@ -97,9 +99,20 @@ public class PerkTreeVertex : MonoBehaviour
         }
     }
 
+    public void StatSheet()
+    {
+        if(perkName != "" && perkName != null)
+            unitCreatorMenu.StatSheetPerkHover(perkName);
+    }
+
     void ChangeSprite(bool learned)
     {
-        if (learned && canBeUnLearned)
+        if(isBase)
+        {
+            icon.sprite = activatedPerkSprite;
+            icon.color = Color.white;
+        }
+        else if (learned && canBeUnLearned)
         {
             icon.sprite = activatedPerkSprite;
             icon.color = cardinals.transform.Find(perkCardinal.ToString()).GetComponent<Toggle>().colors.pressedColor;

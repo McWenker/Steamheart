@@ -20,6 +20,8 @@ public class PerkTreeBridge : MonoBehaviour
 
         set
         {
+            if (image == null)
+                GetImage();
             image.sprite = value ? activatedBridgeSprite : deactivatedBridgeSprite;
             active = value;
         }
@@ -39,7 +41,12 @@ public class PerkTreeBridge : MonoBehaviour
         Active = hasFoundMatch;
     }
 
-    private void Start()
+    private void Awake()
+    {
+        GetImage();
+    }
+
+    private void GetImage()
     {
         image = GetComponent<Image>();
     }

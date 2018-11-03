@@ -16,15 +16,32 @@ public class UnitCreatorMenu : MonoBehaviour
         StatTypes.MGP,
         StatTypes.MEL,
         StatTypes.RNG,
-        StatTypes.DEF,
         StatTypes.MAG,
+        StatTypes.DEF,
         StatTypes.MDF,
         StatTypes.SPD,
-        StatTypes.EVD,
-        StatTypes.RES,
         StatTypes.MOV,
-        StatTypes.JMP
+        StatTypes.JMP,
+        StatTypes.CRT,
+        StatTypes.RES,
+        StatTypes.EVD
     };
+
+    static string[] cardinals = new string[]
+    {
+        "Adept",
+        "Healer",
+        "Levy",
+        "Rogue"
+    };
+
+    [Serializable]
+    class StatSheet
+    {
+        [SerializeField] string name;
+        [SerializeField] public Text statText;
+        [SerializeField] public Text bonusText;
+    }
 
     [SerializeField] TMP_ColorGradient gold;
     [SerializeField] TMP_ColorGradient red;
@@ -40,7 +57,12 @@ public class UnitCreatorMenu : MonoBehaviour
     [SerializeField] Text cardinalText;
     [SerializeField] Text perkText;
     [SerializeField] GameObject heroPrefab;
-    [SerializeField] Text[] statSheet;
+    [SerializeField] StatSheet[] statSheet;
+
+    [SerializeField] Color defaultColor;
+    [SerializeField] Color positiveColor;
+    [SerializeField] Color negativeColor;
+
     string fallBackRaceDesc;
     string fallBackCardinalDesc;
     string fallBackPerkDesc;
@@ -56,7 +78,7 @@ public class UnitCreatorMenu : MonoBehaviour
     [SerializeField] PerkTreeVertex[] perkVertices = new PerkTreeVertex[7];
     public Dictionary<Cardinals, string[]> perkImportDict = new Dictionary<Cardinals, string[]>();
     Dictionary<string, string> descriptionDict = new Dictionary<string, string>();
-    Dictionary<string, bool> unitPerkDict = new Dictionary<string, bool>();
+    public DictPerkBoolDict unitPerkDict = new DictPerkBoolDict();
 
     string UnitName
     {
@@ -64,6 +86,7 @@ public class UnitCreatorMenu : MonoBehaviour
         {
             unitName = value;
             unitInfo[0] = unitName;
+            unit.name = unitName;
         }
     }
 
@@ -85,11 +108,15 @@ public class UnitCreatorMenu : MonoBehaviour
         }
     }
 
-    string UnitLevel
+    int UnitLevel
     {
+        get
+        {
+            return Int32.Parse(unitLevel);
+        }
         set
         {
-            unitLevel = value;
+            unitLevel = value.ToString();
             unitInfo[3] = unitLevel;
         }
     }
@@ -102,10 +129,10 @@ public class UnitCreatorMenu : MonoBehaviour
         {
             if (unitInfo[3] == null)
                 unitInfo[3] = "1";
-            partyBuilder.NewUnit(unitInfo);
+            partyBuilder.NewUnit(unitName, raceName, cardinalName, unitPerkDict, UnitLevel);
             gameObject.SetActive(false);
             partyBuilder.gameObject.SetActive(true);
-            ResetUnit();
+            ResetUnitCreator();
         }
         else
         {
@@ -139,12 +166,12 @@ public class UnitCreatorMenu : MonoBehaviour
             perkText.text = fallBackPerkDesc;
     }
 
-    public void ResetUnit()
+    public void ResetUnitCreator()
     {
         if (unit != null)
             Destroy(unit);
         CreateUnitGameObject();
-        for(int i = 0; i < unitInfo.Length; i++)
+        for(int i = 0; i < unitInfo.Length; ++i)
         {
             unitInfo[i] = null;
         }
@@ -152,6 +179,19 @@ public class UnitCreatorMenu : MonoBehaviour
         {
             unitPerkDict[key] = false;
         }
+        foreach (ToggleGroup tg in GetComponentsInChildren<ToggleGroup>())
+        {
+            foreach (Toggle t in tg.gameObject.GetComponentsInChildren<Toggle>())
+                t.isOn = false;
+        }
+        for (int j = 0; j < perkVertices.Length; ++j)
+        {
+            perkVertices[j].perkName = null;
+            perkVertices[j].IsLearned = false;
+            perkVertices[j].RefreshBridges();
+        }
+        UnitLevel = 0;
+        CardinalName = null;
         inputArea.text = "";
         fallBackRaceDesc = "";
         fallBackCardinalDesc = "";
@@ -161,65 +201,81 @@ public class UnitCreatorMenu : MonoBehaviour
         ResetDesc("perk");
     }
 
-    public void AddPerk(string perkName)
+    public void AddPerk(string perkName, string cardinalName)
     {
-        if(unitPerkDict.ContainsKey(perkName))
-        {
-            unitPerkDict[perkName] = true;
-            fallBackPerkDesc = descriptionDict[perkName];
-            perkText.text = descriptionDict[perkName];
-            /*string perkFile = string.Format("Perks/{0}/{1}", cardinalName, perkName);
-            GameObject perkPrefab = Resources.Load<GameObject>(perkFile);
-            if (perkPrefab == null)
-            {
-                Debug.LogError("No Perk Found: " + perkFile);
-                return;
-            }
-            GameObject perkInstance = Instantiate(perkPrefab);
-            perkInstance.transform.SetParent(unit.transform.Find("Perk Catalog"));
-            perkInstance.name = perkName;
-            Perk thisPerk = perkInstance.GetComponent<Perk>();
-            thisPerk.Employ();
-            thisPerk.LoadDefaultStats();*/
-        }
+        DictPerk dp = new DictPerk(perkName, cardinalName);
+        unitPerkDict[dp] = true;
+        fallBackPerkDesc = descriptionDict[perkName];
+        perkText.text = descriptionDict[perkName];
+        UnitFactory.AddPerk(unit, cardinalName, perkName);
+        ++UnitLevel;
         RefreshPerkTree();
+        StatSheetPerkHover(perkName);
+        RefreshStatSheet();
     }
 
-    public void RemovePerk(string perkName)
+    public void RemovePerk(string perkName, string cardinalName)
     {
-        if (unitPerkDict.ContainsKey(perkName))
+        DictPerk dp = new DictPerk(perkName, cardinalName);
+        unitPerkDict[dp] = false;
+        foreach(Perk p in unit.GetComponentsInChildren<Perk>())
         {
-            unitPerkDict[perkName] = false;
-            foreach(Perk p in unit.GetComponentsInChildren<Perk>())
+            if(p.perkName == perkName)
             {
-                if(p.perkName == perkName)
+                p.UnloadDefaultStats();
+                p.UnEmploy();
+                Destroy(p.gameObject);
+                if(cardinals.Contains(perkName))
                 {
-                    p.UnloadDefaultStats();
-                    p.UnEmploy();
-                    Destroy(p.gameObject);
+                    cardinalName = "";
+                    perkText.text = "";
+                    cardinalText.text = "";
+                    fallBackPerkDesc = "";
+                    fallBackCardinalDesc = "";
+                    ResetPerkTree();
+                }
+                if(unit.GetComponentsInChildren<Perk>().Length-1 == 1)
+                {
+                    //TODO: add a coroutine to allow a wait period after resetting perkDesc
+                    if (cardinalName != "")
+                    SetPerkDesc(cardinalName);
+                    else
+                        SetPerkDesc("");
                 }
             }
         }
+        --UnitLevel;
         RefreshPerkTree();
+        StatSheetPerkHover(perkName);
+        RefreshStatSheet();
+    }
+
+    public void RemoveRace(string raceName)
+    {
+        foreach(Race r in unit.GetComponentsInChildren<Race>())
+        {
+            r.UnloadDefaultStats();
+            r.UnEmploy();
+            Destroy(r.gameObject);
+        }
+        fallBackRaceDesc = "";
+        ResetDesc("race");
+        this.raceName = "";
+        StatSheetRaceHover(raceName);
+        RefreshStatSheet();
     }
 
     public void SetCardinal(string cardinalName)
     {
-        if(this.cardinalName == cardinalName) //unselect
-        {
-            CardinalName = null;
-            fallBackCardinalDesc = "";
-            cardinalText.text = "";
-            RemovePerk(cardinalName);
-        }
         if (descriptionDict.ContainsKey(cardinalName))
         {
             CardinalName = cardinalName;
             fallBackCardinalDesc = descriptionDict[cardinalName];
             cardinalText.text = descriptionDict[cardinalName];
-            AddPerk(cardinalName);
+            SetPerkDesc(cardinalName);
         }
         SetPerkTree();
+        RefreshStatSheet();
     }
 
     public void SetCardinalDesc(string cardinalName)
@@ -237,20 +293,31 @@ public class UnitCreatorMenu : MonoBehaviour
 
     public void SetPerkDesc(string perkName)
     {
-        if (descriptionDict.ContainsKey(perkName))
+        if (descriptionDict.ContainsKey(perkName) && cardinalName != "")
         {
             perkText.text = descriptionDict[perkName];
         }
+        else
+            perkText.text = "";
     }
 
-    public void SetRace(string raceName)
+    public void SetOrResetRace(string raceName)
     {
         if(descriptionDict.ContainsKey(raceName))
         {
+            Race thisRace = unit.GetComponentInChildren<Race>();
+            if (thisRace != null)
+            {
+                if (thisRace.raceName != raceName)
+                    Destroy(thisRace.gameObject);
+            }
             RaceName = raceName;
             fallBackRaceDesc = descriptionDict[raceName];
             racialText.text = descriptionDict[raceName];
+            UnitFactory.AddRace(unit, raceName);
         }
+        StatSheetRaceHover(raceName);
+        RefreshStatSheet();
     }
 
     public void SetRacialDesc(string raceName)
@@ -258,6 +325,161 @@ public class UnitCreatorMenu : MonoBehaviour
         if (descriptionDict.ContainsKey(raceName))
         {
             racialText.text = descriptionDict[raceName];
+        }
+    }
+
+    public void StatSheetPerkHover(string perkName)
+    {
+        if (cardinalName == "" || cardinalName == null)
+            return;
+        string perkFile;
+        bool isCardinal;
+        if (cardinals.Contains(perkName))
+        {
+            perkFile = string.Format("Perks/" + perkName + "/" + perkName);
+            isCardinal = true;
+        }
+        else if(cardinalName != null && cardinalName != "")
+        {
+            perkFile = string.Format("Perks/" + cardinalName + "/" + perkName);
+            isCardinal = false;
+        }
+        else
+        {
+            return;
+        }
+
+        GameObject thisPerk = UnitFactory.InstantiatePrefab(perkFile);
+        if (thisPerk == null)
+        {
+            Debug.LogError("No Perk Found: " + name);
+            return;
+        }
+
+        Perk holder = thisPerk.GetComponent<Perk>();
+        for (int i = 0; i < statOrder.Length; ++i)
+        {
+            if (holder.statDict.ContainsKey(statOrder[i]))
+            {
+                int thisVal;
+                // is the input perk a root cardinal perk? is it known?
+                // if so, differential equals the loss of class
+                if (isCardinal && perkName == cardinalName)
+                    thisVal = -holder.statDict[statOrder[i]];
+                // is the input perk a root cardinal? is it different from the current unit's cardinal?
+                // if so, differential equals the change between classes
+                else if (isCardinal && cardinalName != perkName)
+                {
+                    // does the current unit have a cardinal perk?
+                    // if so, the differential equals change in classes
+                    if (unit.GetComponentInChildren<Perk>() != null)
+                    {
+                        // does the current unit have the current stat modified?
+                        // if so, the differential equals the change from taking input class
+                        if (unit.GetComponentInChildren<Perk>().statDict.ContainsKey(statOrder[i]))
+                            thisVal = holder.statDict[statOrder[i]] - unit.GetComponentInChildren<Perk>().statDict[statOrder[i]];
+                        else
+                            thisVal = holder.statDict[statOrder[i]];
+                    }
+                    // otherwise, the differential equals the bonus from taking class
+                    else
+                    {
+                        thisVal = holder.statDict[statOrder[i]];
+                    }
+                        
+                }
+                // otherwise, the input perk is a tier perk
+                else
+                {
+                    bool perkKnown = false;
+                    foreach (Perk p in unit.GetComponentsInChildren<Perk>())
+                    {
+                        if (p.perkName == perkName)
+                        {
+                            perkKnown = true;
+                            break;
+                        }
+                    }
+                    thisVal = perkKnown ? -holder.statDict[statOrder[i]] : holder.statDict[statOrder[i]];
+                }
+
+                if (thisVal != 0)
+                {
+                    statSheet[i].bonusText.color = thisVal > 0 ? positiveColor : negativeColor;
+                    statSheet[i].bonusText.text = thisVal > 0 ? "+" + thisVal.ToString() : thisVal.ToString();
+                }
+                else
+                {
+                    statSheet[i].bonusText.color = defaultColor;
+                    statSheet[i].bonusText.text = "-";
+                }
+            }
+            else
+            {
+                statSheet[i].bonusText.color = defaultColor;
+                statSheet[i].bonusText.text = "-";
+            }
+        }
+        Destroy(thisPerk);
+    }
+
+    public void StatSheetRaceHover(string raceName)
+    {
+        string raceFile = string.Format("Races/"+ raceName);
+        GameObject thisRace = UnitFactory.InstantiatePrefab(raceFile);
+        if (thisRace == null)
+        {
+            Debug.LogError("No Race Found: " + name);
+            return;
+        }
+        Race holder = thisRace.GetComponent<Race>();
+        for (int i = 0; i < statOrder.Length; ++i)
+        {
+            // check if this race modifies this stat
+            if(holder.baseStatDict.ContainsKey(statOrder[i]))
+            {
+                // holder value for the stat differential
+                int thisVal;
+                if (this.raceName != raceName && unit.GetComponentInChildren<Race>() != null)
+                {
+                    if (this.raceName == null || this.raceName == "")
+                        thisVal = holder.baseStatDict[statOrder[i]];
+                    else if (unit.GetComponentInChildren<Race>().baseStatDict.ContainsKey(statOrder[i]))
+                        thisVal = holder.baseStatDict[statOrder[i]] - unit.GetComponentInChildren<Race>().baseStatDict[statOrder[i]];
+                    else
+                        thisVal = holder.baseStatDict[statOrder[i]];
+                }
+                else if(this.raceName == raceName)
+                    thisVal = -holder.baseStatDict[statOrder[i]];
+                else
+                    thisVal = holder.baseStatDict[statOrder[i]];
+
+
+                if (thisVal != 0)
+                {
+                    statSheet[i].bonusText.color = thisVal > 0 ? positiveColor : negativeColor;
+                    statSheet[i].bonusText.text = thisVal > 0 ? "+" + thisVal.ToString() : thisVal.ToString();
+                }
+                else
+                {
+                    statSheet[i].bonusText.color = defaultColor;
+                    statSheet[i].bonusText.text = "-";
+                }
+            }
+            else
+            {
+                statSheet[i].bonusText.color = defaultColor;
+                statSheet[i].bonusText.text = "-";
+            }
+        }
+        Destroy(thisRace);
+    }
+
+    public void ResetStatSheetHover()
+    {
+        for(int i = 0; i < statSheet.Length; ++i)
+        {
+            statSheet[i].bonusText.text = "";
         }
     }
     #endregion
@@ -282,7 +504,8 @@ public class UnitCreatorMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        ResetUnit();
+        ResetUnitCreator();
+        RefreshPerkTree();
     }
 
     private void PopulateDictionaries()
@@ -294,9 +517,33 @@ public class UnitCreatorMenu : MonoBehaviour
             descriptionDict.Add(txt.name, txt.text);
         }
 
-        foreach (TextAsset txt in Resources.LoadAll("Texts/Perks/"))
+        foreach (TextAsset txt in Resources.LoadAll("Texts/Perks/Adept/"))
         {
-            unitPerkDict.Add(txt.name, false);
+            DictPerk dp = new DictPerk(txt.name.Trim(new char[] { '_' }), "Adept");
+
+            //Debug.Log(dp.PerkName + ", " + dp.CardinalName);
+            unitPerkDict.Add(dp, false);
+        }
+        foreach (TextAsset txt in Resources.LoadAll("Texts/Perks/Healer/"))
+        {
+            DictPerk dp = new DictPerk(txt.name.Trim(new char[] { '_' }), "Healer");
+
+            //Debug.Log(dp.PerkName + ", " + dp.CardinalName);
+            unitPerkDict.Add(dp, false);
+        }
+        foreach (TextAsset txt in Resources.LoadAll("Texts/Perks/Levy/"))
+        {
+            DictPerk dp = new DictPerk(txt.name.Trim(new char[] { '_' }), "Levy");
+
+            //Debug.Log(dp.PerkName + ", " + dp.CardinalName);
+            unitPerkDict.Add(dp, false);
+        }
+        foreach (TextAsset txt in Resources.LoadAll("Texts/Perks/Rogue/"))
+        {
+            DictPerk dp = new DictPerk(txt.name.Trim(new char[] { '_' }), "Rogue");
+
+            //Debug.Log(dp.PerkName + ", " + dp.CardinalName);
+            unitPerkDict.Add(dp, false);
         }
     }
 
@@ -307,6 +554,7 @@ public class UnitCreatorMenu : MonoBehaviour
         {
             return;
         }
+        AddPerk(cardinalName, cardinalName);
         unitCardinal = (Cardinals)Enum.Parse(typeof(Cardinals), cardinalName);
         for (int i = 0; i < perkVertices.Length; ++i)
         {
@@ -317,6 +565,7 @@ public class UnitCreatorMenu : MonoBehaviour
         perkText.text = perkVertices[0].description;
         fallBackPerkDesc = perkVertices[0].description;
         RefreshPerkTree();
+        RefreshStatSheet();
     }
 
     private void ResetPerkTree()
@@ -327,6 +576,10 @@ public class UnitCreatorMenu : MonoBehaviour
             perkVertices[i].description = null;
             perkVertices[i].IsLearned = false;
         }
+        foreach (var key in unitPerkDict.ToList())
+        {
+            unitPerkDict[key.Key] = false;
+        }
     }
 
     private void RefreshPerkTree()
@@ -334,6 +587,17 @@ public class UnitCreatorMenu : MonoBehaviour
         for(int i = 0; i < perkVertices.Length; ++i)
         {
             perkVertices[i].RefreshBridges();
+        }
+    }
+
+    private void RefreshStatSheet()
+    {
+        if (stats != null)
+        {
+            for (int i = 0; i < statOrder.Length; ++i)
+            {
+                statSheet[i].statText.text = stats[statOrder[i]].ToString();
+            }
         }
     }
 
@@ -348,17 +612,6 @@ public class UnitCreatorMenu : MonoBehaviour
         notice.SetActive(true);
         yield return new WaitForSeconds(2f);
         notice.SetActive(false);
-    }
-
-    private void UpdateStatSheet()
-    {
-        if(stats != null)
-        {
-            for(int i = 0; i < Race.statOrder.Length; ++i)
-            {
-                statSheet[i].text = stats[Race.statOrder[i]].ToString();
-            }
-        }
     }
     #endregion
 }

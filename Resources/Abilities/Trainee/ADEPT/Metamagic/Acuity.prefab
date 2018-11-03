@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd71940f84428b4abe66cb95f863969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontal: 8
+  horizontal: 4
   vertical: 2147483647
   selfTargeting: 1
 --- !u!114 &114268962899950430
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e0dd1fa1a22ec54da4ca43b2867cc86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statusName: 
+  statusName: FocusStatusEffect
   duration: 2
   rank: 1
 --- !u!114 &114983989567466218

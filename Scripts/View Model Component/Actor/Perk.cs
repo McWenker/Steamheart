@@ -70,10 +70,22 @@ public class Perk : MonoBehaviour
         Transform catalog = transform.parent.parent.Find("Ability Catalog");
         for (int j = 0; j < learnedAbilities.Length; ++j)
         {
-            Destroy(catalog.Find(learnedAbilities[j].name));
-            Transform abilitySchool = catalog.Find(learnedAbilities[j].abilitySchool);
-            if (abilitySchool.childCount == 0)
-                Destroy(abilitySchool);
+            foreach(Transform t in catalog)
+            {
+                foreach(Transform v in t)
+                {
+                    if (v.GetComponent<Ability>() != null)
+                    {
+                        if (v.GetComponent<Ability>().name == learnedAbilities[j].name)
+                        {
+                            v.parent = null;
+                            Destroy(v.gameObject);
+                            if (t.childCount == 0)
+                                Destroy(t.gameObject);
+                        }
+                    }
+                }
+            }
         }
 
         //this.RemoveObserver(OnLvlChangeNotification, Stats.DidChangeNotification(StatTypes.LVL), stats);

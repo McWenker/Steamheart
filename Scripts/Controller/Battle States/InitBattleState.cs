@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -24,12 +25,11 @@ public class InitBattleState : BattleState
 
 	void SpawnTestUnits() // DEMO METHOD
 	{
-        string[] names = new string[] { "Zyndtar", "Bonefeather", "Gur'ak", "Sheva", "Monk'as", "Gam'bol" };
+        PartyEntry[] party = GameObject.FindObjectsOfType<PartyEntry>();
         List<Tile> locations = new List<Tile>(board.tiles.Values);
-        for (int i = 0; i < names.Length; ++i)
+        for (int i = 0; i < party.Length; ++i)
         {
-            int level = UnityEngine.Random.Range(9, 12);
-            GameObject instance = UnitFactory.Create(names[i], level);
+            GameObject instance = UnitFactory.CreateUnit(party[i].UnitInfo[0], party[i].UnitInfo[1], party[i].UnitInfo[2], party[i].PerkDict, party[i].UnitInfo[3], "Hero");
             int random = UnityEngine.Random.Range(0, locations.Count);
             Tile randomTile = locations[random];
             locations.RemoveAt(random);
@@ -38,6 +38,7 @@ public class InitBattleState : BattleState
             unit.dir = (Directions)UnityEngine.Random.Range(0, 4);
             unit.Match();
             units.Add(unit);
+            Destroy(party[i].gameObject);
         }
         SelectTile(units[0].tile.pos);
     }

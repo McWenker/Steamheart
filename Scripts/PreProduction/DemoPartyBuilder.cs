@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class DemoPartyBuilder : MonoBehaviour
 {
@@ -42,12 +43,16 @@ public class DemoPartyBuilder : MonoBehaviour
         deleteActive = true;
     }
 
-    public void NewUnit(string[] unitInfo)
+    public void NewUnit(string unitName, string raceName, string cardinalName, DictPerkBoolDict perkDict, int level)
     {
         PartyEntry entry = Dequeue();
         if (entry.UnitInfo != null)
         {
-            entry.UnitInfo = unitInfo;
+            entry.UnitInfo = new string[] { unitName, raceName, cardinalName, level.ToString() };
+            foreach (var key in perkDict.ToList())
+            {
+                entry.PerkDict.Add(key.Key, key.Value);
+            }
             partyEntries.Add(entry);
         }
         else
@@ -56,6 +61,12 @@ public class DemoPartyBuilder : MonoBehaviour
 
     public void PlayGame()
     {
+        foreach(PartyEntry entry in partyEntries)
+        {
+            entry.transform.SetParent(null, true);
+            DontDestroyOnLoad(entry.gameObject);
+        }
+        GameObjectPoolController.ClearEntry(DemoUnitKey);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 

@@ -41,6 +41,16 @@ public class Race : MonoBehaviour
 			features[i].Activate (gameObject);
 	}
 
+    public void UnEmploy()
+    {
+        Feature[] features = GetComponentsInChildren<Feature>();
+        for (int i = 0; i < features.Length; ++i)
+            features[i].Deactivate();
+
+        //this.RemoveObserver(OnLvlChangeNotification, Stats.DidChangeNotification(StatTypes.LVL), stats);
+        stats = null;
+    }
+
     public void LoadDefaultStats()
     {
         for (int i = 0; i < statOrder.Length; ++i)
@@ -56,10 +66,26 @@ public class Race : MonoBehaviour
         stats.SetValue(StatTypes.MP, stats[StatTypes.MMP], false);
         stats.SetValue(StatTypes.GP, stats[StatTypes.MGP], false);
     }
+
+    public void UnloadDefaultStats()
+    {
+        for (int i = 0; i < statOrder.Length; ++i)
+        {
+            StatTypes type = statOrder[i];
+            if (baseStatDict.ContainsKey(type))
+            {
+                stats.AddValue(type, -baseStatDict[type], false);
+            }
+        }
+
+        stats.SetValue(StatTypes.HP, stats[StatTypes.MHP], false);
+        stats.SetValue(StatTypes.MP, stats[StatTypes.MMP], false);
+        stats.SetValue(StatTypes.GP, stats[StatTypes.MGP], false);
+    }
     #endregion
 
     #region Event Handlers
-	protected virtual void OnLvlChangeNotification (object sender, object args)
+    protected virtual void OnLvlChangeNotification (object sender, object args)
 	{
 		int oldValue = (int)args;
 		int newValue = stats[StatTypes.LVL];

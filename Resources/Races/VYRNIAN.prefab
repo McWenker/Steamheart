@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4177454763945394}
   - component: {fileID: 114631667614767186}
   m_Layer: 0
-  m_Name: VYRNIAN
+  m_Name: Vyrnian
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

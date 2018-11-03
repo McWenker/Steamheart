@@ -38,9 +38,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4254339948381586}
   - component: {fileID: 114905024754852624}
-  - component: {fileID: 114649707846352436}
   - component: {fileID: 114293929965733394}
-  - component: {fileID: 114943919615202794}
+  - component: {fileID: 114217778166517896}
+  - component: {fileID: 114677410788039026}
   m_Layer: 0
   m_Name: Clairvoyance
   m_TagString: Untagged
@@ -86,6 +86,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac23c1c20be20f14ab11e84fbc73e4d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114217778166517896
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1534034018017472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06309bb5620b36a42b628df89b3eccb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontal: 1
+  vertical: 2147483647
 --- !u!114 &114293929965733394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -110,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4586b9d4b5d73d24a86a4f2dddf74aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114649707846352436
+--- !u!114 &114677410788039026
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,7 +131,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1534034018017472}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7aa60f94a55d0f54d8bfbbc99e2e4cb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 3eb871ee686f1ad47b10cad26a47ba24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114860037212354672
@@ -132,8 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e0dd1fa1a22ec54da4ca43b2867cc86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statusName: 
-  duration: 2
+  statusName: ClarityStatusEffect
+  duration: 3
   rank: 1
 --- !u!114 &114905024754852624
 MonoBehaviour:
@@ -147,17 +160,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilitySchool: Metamagic
---- !u!114 &114943919615202794
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1534034018017472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fd71940f84428b4abe66cb95f863969, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  horizontal: 8
-  vertical: 2147483647
-  selfTargeting: 1

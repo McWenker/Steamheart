@@ -19,6 +19,7 @@ public abstract class BaseAbilityMenuState : BattleState
     {
         if (owner.isPaused)
             return;
+        base.Exit();
         abilityMenuPanelController.Hide();
 	}
 

@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 public static class UnitFactory
 {
@@ -37,7 +38,28 @@ public static class UnitFactory
         return obj;
     }
 
-    static GameObject InstantiatePrefab(string name)
+    public static GameObject CreateUnit(string name, string race, string cardinal, DictPerkBoolDict perkDict, string level, string model)
+    {
+        GameObject obj = InstantiatePrefab("Units/" + model);
+        obj.name = name;
+        obj.AddComponent<Unit>();
+        AddStats(obj);
+        AddRace(obj, race);
+        AddLocomotion(obj, Locomotions.Walk);
+        obj.AddComponent<Status>();
+        AddEquipment(obj, cardinal);
+        AddRank(obj, Int32.Parse(level));
+        obj.AddComponent<Health>();
+        obj.AddComponent<Mana>();
+        AddAttack(obj, "");
+        AddAbilityCatalog(obj);
+        AddPerkCatalog(obj, perkDict);
+        AddAlliance(obj, Alliances.Hero);
+        AddAttackPattern(obj, "");
+        return obj;
+    }
+
+    public static GameObject InstantiatePrefab(string name)
     {
         GameObject prefab = Resources.Load<GameObject>(name);
         if (prefab == null)
@@ -46,6 +68,7 @@ public static class UnitFactory
             return new GameObject(name);
         }
         GameObject instance = GameObject.Instantiate(prefab);
+        instance.name = instance.name.Replace("(Clone)", "");
         return instance;
     }
 
@@ -55,7 +78,7 @@ public static class UnitFactory
         s.SetValue(StatTypes.LVL, 1, false);
     }
 
-    static void AddRace(GameObject obj, string name)
+    public static void AddRace(GameObject obj, string name)
     {
         string raceName = string.Format("Races/" + name);
         GameObject thisRace = InstantiatePrefab(raceName);
@@ -69,7 +92,7 @@ public static class UnitFactory
         thisRace.GetComponent<Race>().LoadDefaultStats();
     }
 
-    static void AddEquipment(GameObject obj, string name)
+    public static void AddEquipment(GameObject obj, string name)
     {
         Equipment thisEquip = obj.AddComponent<Equipment>();
         GameObject main = new GameObject("Equipment Catalog");
@@ -104,6 +127,53 @@ public static class UnitFactory
         }
     }
 
+    public static void AddPerk(GameObject obj, string cardinal, string name)
+    {
+        string perkFile = string.Format("Perks/{0}/{1}", cardinal, name);
+        GameObject perk = InstantiatePrefab(perkFile);
+        if (perk == null)
+        {
+            Debug.LogError("No Perk Found: " + perkFile);
+            return;
+        }
+        perk.name = name;
+        perk.transform.SetParent(obj.transform.Find("Perk Catalog"));
+        Perk thisPerk = perk.GetComponent<Perk>();
+        thisPerk.Employ();
+        thisPerk.LoadDefaultStats();
+    }
+
+    public static void AddPerk(GameObject obj, string cardinal, string name, GameObject parent)
+    {
+        string perkFile = string.Format("Perks/{0}/{1}", cardinal, name);
+        GameObject perk = InstantiatePrefab(perkFile);
+        if (perk == null)
+        {
+            Debug.LogError("No Perk Found: " + perkFile);
+            return;
+        }
+        perk.name = name;
+        perk.transform.SetParent(parent.transform);
+        Perk thisPerk = perk.GetComponent<Perk>();
+        thisPerk.Employ();
+        thisPerk.LoadDefaultStats();
+    }
+
+    static void AddPerkCatalog(GameObject obj, DictPerkBoolDict dict)
+    {
+        GameObject main = new GameObject("Perk Catalog");
+        main.transform.SetParent(obj.transform);
+        main.AddComponent<PerkCatalog>();
+
+        foreach (KeyValuePair<DictPerk, bool> entry in dict)
+        {
+            if (entry.Value == true)
+            {
+                AddPerk(obj, entry.Key.CardinalName, entry.Key.PerkName, main);
+            }
+        }
+    }
+
     static void AddPerkCatalog(GameObject obj, string name)
     {
         GameObject main = new GameObject("Perk Catalog");
@@ -119,18 +189,7 @@ public static class UnitFactory
 
         for (int i = 0; i < recipe.perks.Length; ++i)
         {
-            string perkName = string.Format("Perks/{0}/{1}", Enum.GetName(typeof(Cardinals), recipe.perks[i].perkCardinal), recipe.perks[i].name);
-            GameObject perk = InstantiatePrefab(perkName);
-            if (perk == null)
-            {
-                Debug.LogError("No Perk Found: " + perkName);
-                return;
-            }
-            perk.name = recipe.perks[i].name;
-            perk.transform.SetParent(main.transform);
-            Perk thisPerk = perk.GetComponent<Perk>();
-            thisPerk.Employ();
-            thisPerk.LoadDefaultStats();
+            
         }
     }
 

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4122491679102150}
   - component: {fileID: 114304519510123356}
   m_Layer: 0
-  m_Name: AETROC
+  m_Name: Aetroc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

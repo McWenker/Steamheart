@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4985650146475422}
   - component: {fileID: 114041079369808172}
   m_Layer: 0
-  m_Name: HEMOSI
+  m_Name: Hemosi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -14,6 +14,7 @@ public class PartyEntry : MonoBehaviour
     string className;
     string unitLevel;
     string[] unitInfo = new string[4];
+    public DictPerkBoolDict PerkDict;
 
     public string[] UnitInfo
     {
