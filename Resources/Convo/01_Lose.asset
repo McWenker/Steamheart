@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 404c62f36b6e697419b05420371ca8db, type: 3}
+  m_Name: 01_Lose
+  m_EditorClassIdentifier: 
+  list:
+  - messages:
+    - Defeat!
+    - Try to keep your units at range, or add a healer to the party.
+    speaker: {fileID: 21300000, guid: 5958d0b4ef928274a9915a19ff818f5f, type: 3}
+    anchor: 8
+  - messages:
+    - Better luck next time...
+    speaker: {fileID: 21300000, guid: 47934aaeb5554ab4bbd2b3cc444aee91, type: 3}
+    anchor: 0

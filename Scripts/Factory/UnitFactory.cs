@@ -14,10 +14,10 @@ public static class UnitFactory
             Debug.LogError("No Unit Recipe for name: " + name);
             return null;
         }
-        return Create(recipe, level);
+        return CreateUnit(recipe);
     }
 
-    public static GameObject Create(UnitRecipe recipe, int level)
+    public static GameObject CreateUnit(UnitRecipe recipe)
     {
         GameObject obj = InstantiatePrefab("Units/" + recipe.model);
         obj.name = recipe.name;
@@ -27,12 +27,12 @@ public static class UnitFactory
         AddLocomotion(obj, recipe.locomotion);
         obj.AddComponent<Status>();
         AddEquipment(obj, recipe.equipCatalog);
-        AddRank(obj, level);
         obj.AddComponent<Health>();
         obj.AddComponent<Mana>();
         AddAttack(obj, recipe.attack);
         AddAbilityCatalog(obj);
         AddPerkCatalog(obj, recipe.perkCatalog);
+        AddRank(obj, obj.GetComponentsInChildren<Perk>().Length);
         AddAlliance(obj, recipe.alliance);
         AddAttackPattern(obj, recipe.strategy);
         return obj;
@@ -189,7 +189,7 @@ public static class UnitFactory
 
         for (int i = 0; i < recipe.perks.Length; ++i)
         {
-            
+            AddPerk(obj, recipe.perks[i].perkCardinal.ToString(), recipe.perks[i].name);
         }
     }
 

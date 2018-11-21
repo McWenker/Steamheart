@@ -21,6 +21,10 @@ public class BattleController : StateMachine
     public ComputerPlayer cpu;
     public PauseMenuController pauseMenu;
     public bool isPaused = false;
+    public UnitRecipe[] enemies;
+    public string introScene;
+    public string outroWinScene;
+    public string outroLoseScene;
 
     void Start()
 	{

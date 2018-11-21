@@ -59,8 +59,7 @@ public class PerkTreeVertex : MonoBehaviour
             {
                 if (!isLearned)
                 {
-                    IsLearned = true;
-                    unitCreatorMenu.AddPerk(perkName, perkCardinal.ToString());
+                    IsLearned = unitCreatorMenu.AddPerk(perkName, perkCardinal.ToString());
                 }
                 else if (canBeUnLearned)
                 {

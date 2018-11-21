@@ -19,13 +19,13 @@ public class CutSceneState : BattleState
         if (IsBattleOver())
         {
             if (DidPlayerWin())
-                data = Resources.Load<ConvoData>("Convos/OutroSceneWin");
+                data = Resources.Load<ConvoData>("Convo/" + owner.outroWinScene);
             else
-                data = Resources.Load<ConvoData>("Convos/OutroSceneLose");
+                data = Resources.Load<ConvoData>("Convo/" + owner.outroLoseScene);
         }
         else
         {
-            data = Resources.Load<ConvoData>("Convo/Test");
+            data = Resources.Load<ConvoData>("Convo/" + owner.introScene);
         }
         ConvoController.Show(data);
     }

@@ -45,8 +45,16 @@ public abstract class Movement : MonoBehaviour
     protected virtual void Filter(List<Tile> tiles)
     {
         for (int i = tiles.Count - 1; i >= 0; --i)
+        {
             if (tiles[i].content != null)
-                tiles.RemoveAt(i);
+            {
+                if (tiles[i].content.GetComponent<Obstacle>() != null)
+                {
+                    if (tiles[i].content.GetComponent<Obstacle>().isBlocker)
+                        tiles.RemoveAt(i);
+                }
+            }
+        }
     }
 
     protected virtual IEnumerator Turn(Directions dir)

@@ -56,4 +56,4 @@ MonoBehaviour:
     m_values: 060000000600000006000000
   perkName: Exotic Methods
   learnedAbilities:
-  - {fileID: 0}
+  - {fileID: 114845648634016678, guid: ebe47cebd623bed468fe9f970a0a0df6, type: 2}

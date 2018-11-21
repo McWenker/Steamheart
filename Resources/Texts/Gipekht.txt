@@ -6,5 +6,5 @@ Starting Stats:
 +36 DEF +65 MDF
 +79 SPD +3 MOV +4 JMP
 
-Specials:
+Specials (coming soon!):
 Carapace - Additional 10% chance to ignore adverse effects.

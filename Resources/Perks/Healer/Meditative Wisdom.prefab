@@ -56,4 +56,4 @@ MonoBehaviour:
     m_values: 0f0000000500000005000000
   perkName: Meditative Wisdom
   learnedAbilities:
-  - {fileID: 0}
+  - {fileID: 114715054367500468, guid: dea6302f11703d7488b2efeaf561b784, type: 2}

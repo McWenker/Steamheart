@@ -8,8 +8,8 @@ public class PerkCatalogRecipe : ScriptableObject
     [System.Serializable]
     public class CatalogPerk
     {
-        public string name;
-        public Cardinals perkCardinal;
+        [SerializeField] public string name;
+        [SerializeField] public Cardinals perkCardinal;
     }
     public CatalogPerk[] perks;
 }

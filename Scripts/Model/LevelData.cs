@@ -5,4 +5,5 @@ public class LevelData : ScriptableObject
 {
     public List<Vector3> positions;
     public List<TerrainType> terrains;
+    public List<GameObject> obstacles;
 }

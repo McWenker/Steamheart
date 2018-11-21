@@ -52,10 +52,11 @@ public class UnitCreatorMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI nameNotice;
     [SerializeField] TextMeshProUGUI racialNotice;
     [SerializeField] TextMeshProUGUI classNotice;
+    [SerializeField] TextMeshProUGUI maxPartyNotice;
 
-    [SerializeField] Text racialText;
-    [SerializeField] Text cardinalText;
-    [SerializeField] Text perkText;
+    [SerializeField] TextMeshProUGUI racialText;
+    [SerializeField] TextMeshProUGUI cardinalText;
+    [SerializeField] TextMeshProUGUI perkText;
     [SerializeField] GameObject heroPrefab;
     [SerializeField] StatSheet[] statSheet;
 
@@ -132,7 +133,7 @@ public class UnitCreatorMenu : MonoBehaviour
             partyBuilder.NewUnit(unitName, raceName, cardinalName, unitPerkDict, UnitLevel);
             gameObject.SetActive(false);
             partyBuilder.gameObject.SetActive(true);
-            ResetUnitCreator();
+            ResetUnitCreator(false);
         }
         else
         {
@@ -166,8 +167,9 @@ public class UnitCreatorMenu : MonoBehaviour
             perkText.text = fallBackPerkDesc;
     }
 
-    public void ResetUnitCreator()
+    public void ResetUnitCreator(bool resetCount)
     {
+        int unitPerks = 0;
         if (unit != null)
             Destroy(unit);
         CreateUnitGameObject();
@@ -177,12 +179,24 @@ public class UnitCreatorMenu : MonoBehaviour
         }
         foreach(var key in unitPerkDict.Keys.ToList())
         {
+            if(unitPerkDict[key] == true)
+            {
+                unitPerks++;
+            }
             unitPerkDict[key] = false;
         }
+
+        if(resetCount)
+            partyBuilder.DemoPerkCount -= unitPerks;
+
         foreach (ToggleGroup tg in GetComponentsInChildren<ToggleGroup>())
         {
             foreach (Toggle t in tg.gameObject.GetComponentsInChildren<Toggle>())
+            {
+                t.GetComponent<CreatorToggle>().affectPerk = false;
                 t.isOn = false;
+                t.GetComponent<CreatorToggle>().affectPerk = true;
+            }
         }
         for (int j = 0; j < perkVertices.Length; ++j)
         {
@@ -201,8 +215,14 @@ public class UnitCreatorMenu : MonoBehaviour
         ResetDesc("perk");
     }
 
-    public void AddPerk(string perkName, string cardinalName)
+    public bool AddPerk(string perkName, string cardinalName)
     {
+        if (partyBuilder.DemoPerkCount == 15)
+        {
+            StartCoroutine(UnitCreatorNotice(maxPartyNotice.gameObject));
+            return false;
+        }
+        partyBuilder.DemoPerkCount++;
         DictPerk dp = new DictPerk(perkName, cardinalName);
         unitPerkDict[dp] = true;
         fallBackPerkDesc = descriptionDict[perkName];
@@ -212,10 +232,12 @@ public class UnitCreatorMenu : MonoBehaviour
         RefreshPerkTree();
         StatSheetPerkHover(perkName);
         RefreshStatSheet();
+        return true;
     }
 
     public void RemovePerk(string perkName, string cardinalName)
     {
+        partyBuilder.DemoPerkCount--;
         DictPerk dp = new DictPerk(perkName, cardinalName);
         unitPerkDict[dp] = false;
         foreach(Perk p in unit.GetComponentsInChildren<Perk>())
@@ -274,6 +296,7 @@ public class UnitCreatorMenu : MonoBehaviour
             cardinalText.text = descriptionDict[cardinalName];
             SetPerkDesc(cardinalName);
         }
+        unitLevel = "0";
         SetPerkTree();
         RefreshStatSheet();
     }
@@ -504,7 +527,7 @@ public class UnitCreatorMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        ResetUnitCreator();
+        ResetUnitCreator(false);
         RefreshPerkTree();
     }
 
@@ -570,6 +593,7 @@ public class UnitCreatorMenu : MonoBehaviour
 
     private void ResetPerkTree()
     {
+        int unitPerks = 0;
         for (int i = 0; i < perkVertices.Length; ++i)
         {
             perkVertices[i].perkName = null;
@@ -578,8 +602,11 @@ public class UnitCreatorMenu : MonoBehaviour
         }
         foreach (var key in unitPerkDict.ToList())
         {
+            if (unitPerkDict[key.Key] == true)
+                unitPerks++;
             unitPerkDict[key.Key] = false;
         }
+        partyBuilder.DemoPerkCount -= unitPerks;
     }
 
     private void RefreshPerkTree()
@@ -609,6 +636,10 @@ public class UnitCreatorMenu : MonoBehaviour
 
     private IEnumerator UnitCreatorNotice(GameObject notice)
     {
+        nameNotice.gameObject.SetActive(false);
+        racialNotice.gameObject.SetActive(false);
+        classNotice.gameObject.SetActive(false);
+        maxPartyNotice.gameObject.SetActive(false);
         notice.SetActive(true);
         yield return new WaitForSeconds(2f);
         notice.SetActive(false);

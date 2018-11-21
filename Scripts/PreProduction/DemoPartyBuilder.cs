@@ -10,6 +10,7 @@ public class DemoPartyBuilder : MonoBehaviour
 {
     const string DemoUnitKey = "DemoParty.Entry";
     const int DemoPartySize = 7;
+    const int DemoPerkMax = 15;
 
     [SerializeField] GameObject PartyListPrefab;
     [SerializeField] GameObject partyNotice;
@@ -18,12 +19,29 @@ public class DemoPartyBuilder : MonoBehaviour
     [SerializeField] TMP_ColorGradient red;
     [SerializeField] GridLayoutGroup panel;
     [SerializeField] TextMeshProUGUI deleteThis;
+    [SerializeField] TextMeshProUGUI perkCounter;
+
     List<PartyEntry> partyEntries = new List<PartyEntry>(DemoPartySize);
     bool deleteActive = false;
+    int demoPerkCount;
 
     public bool DeleteActive
     {
         get { return deleteActive; }
+    }
+
+    public int DemoPerkCount
+    {
+        get { return demoPerkCount; }
+        set
+        {
+            demoPerkCount = value;
+            if (demoPerkCount == 15)
+                perkCounter.colorGradientPreset = red;
+            else
+                perkCounter.colorGradientPreset = gold;
+            perkCounter.SetText((DemoPerkMax - demoPerkCount).ToString());
+        }
     }
 
     #region Public
@@ -72,6 +90,13 @@ public class DemoPartyBuilder : MonoBehaviour
 
     public void RemoveUnit(PartyEntry thisUnit)
     {
+        int unitPerkCount = 0;
+        foreach(KeyValuePair<DictPerk, bool> kvp in thisUnit.PerkDict)
+        {
+            if (kvp.Value == true)
+                unitPerkCount++;
+        }
+        demoPerkCount -= unitPerkCount;
         partyEntries.Remove(thisUnit);
         Enqueue(thisUnit);
         deleteActive = false;

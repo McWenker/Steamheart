@@ -56,4 +56,4 @@ MonoBehaviour:
     m_values: 05000000070000000700000004000000
   perkName: Degeneracy
   learnedAbilities:
-  - {fileID: 114167256849436454, guid: 4162c3774ad3c1d47bffe34bf36c5f53, type: 2}
+  - {fileID: 114938766768854032, guid: 17ee4707f7c69e94e8eb81018e9f5754, type: 2}

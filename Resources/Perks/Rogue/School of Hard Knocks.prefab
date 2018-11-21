@@ -56,4 +56,4 @@ MonoBehaviour:
     m_values: 0c00000005000000
   perkName: School of Hard Knocks
   learnedAbilities:
-  - {fileID: 0}
+  - {fileID: 114726628438063702, guid: c271ef0ddf32b6e458a472739c49e074, type: 2}

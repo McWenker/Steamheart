@@ -11,6 +11,7 @@ public class CreatorToggle : MonoBehaviour
     [SerializeField] Color onColor;
     [SerializeField] UnitCreatorMenu creatorMenu;
     [SerializeField] bool forRace;
+    public bool affectPerk = true;
     
     void Start()
     {
@@ -39,7 +40,7 @@ public class CreatorToggle : MonoBehaviour
         {
             if (forRace)
                 creatorMenu.RemoveRace(name);
-            else
+            else if(affectPerk)
                 creatorMenu.RemovePerk(name, name);
         }
     }

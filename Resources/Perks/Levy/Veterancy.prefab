@@ -56,4 +56,4 @@ MonoBehaviour:
     m_values: 140000000a0000000a00000005000000
   perkName: Veterancy
   learnedAbilities:
-  - {fileID: 0}
+  - {fileID: 114769334020311498, guid: 2a07f16b5629d904fb93f36db1dc933b, type: 2}

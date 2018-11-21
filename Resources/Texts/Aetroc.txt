@@ -6,5 +6,5 @@ Starting Stats:
 +41 DEF +38 MDF 
 +88 SPD +4 MOV +3 JMP
 
-Specials:
+Specials (coming soon!):
 Brutish - Critical hits deal 20% of their damage as Grit damage.

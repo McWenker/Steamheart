@@ -56,4 +56,4 @@ MonoBehaviour:
     m_values: 07000000050000000500000005000000
   perkName: Tenacity
   learnedAbilities:
-  - {fileID: 0}
+  - {fileID: 114303362908553728, guid: 1de976fe67574d544ad37e8d37c507e8, type: 2}

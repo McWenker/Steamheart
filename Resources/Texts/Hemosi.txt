@@ -6,5 +6,5 @@ Starting Stats:
 +30 DEF +58 MDF 
 +108 SPD +5 MOV +5 JMP
 
-Specials:
+Specials (coming soon!):
 Harmony - Negates adverse tile effects.

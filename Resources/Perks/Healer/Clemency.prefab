@@ -56,4 +56,4 @@ MonoBehaviour:
     m_values: 0f0000000f00000005000000050000000a00000005000000
   perkName: Clemency
   learnedAbilities:
-  - {fileID: 0}
+  - {fileID: 114909845459323428, guid: d37b066f91614fa46a3ad7b8c3102937, type: 2}

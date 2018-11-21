@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 404c62f36b6e697419b05420371ca8db, type: 3}
+  m_Name: 01_Win
+  m_EditorClassIdentifier: 
+  list:
+  - messages:
+    - Victory!
+    - Great job, you have won the battle.
+    speaker: {fileID: 21300000, guid: 5958d0b4ef928274a9915a19ff818f5f, type: 3}
+    anchor: 8
+  - messages:
+    - A much more difficult battle now awaits...
+    speaker: {fileID: 21300000, guid: 8e32968ddef59684688b47b409a6b4db, type: 3}
+    anchor: 0

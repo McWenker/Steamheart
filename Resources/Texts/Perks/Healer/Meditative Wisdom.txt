@@ -3,4 +3,4 @@ MEDITATIVE WISDOM
 +MAG
 
 Abilities Learned
-Nirvana: Inflict Stun I to self for 1 round. Apply Reinforce I and Ward I to self for 4 rounds.
+Meditation: Inflict Stun I to self for 1 round. Apply Reinforce I and Ward I to self for 4 rounds.

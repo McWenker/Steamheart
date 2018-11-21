@@ -56,4 +56,4 @@ MonoBehaviour:
     m_values: 0a0000000f00000001000000
   perkName: Footwork
   learnedAbilities:
-  - {fileID: 0}
+  - {fileID: 114092828525200994, guid: e691d2ef46a68754abd4165b3a90f4b6, type: 2}

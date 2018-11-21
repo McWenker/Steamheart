@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Linq;
 
 public class StatPanel : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class StatPanel : MonoBehaviour
 			mpLabel.text = string.Format("MP {0} / {1}", stats[StatTypes.MP], stats[StatTypes.MMP]);
 			gpLabel.text = string.Format("GR {0} / {1}", stats[StatTypes.GP], stats[StatTypes.MGP]);
 			lvLabel.text = string.Format("LV. {0}", stats[StatTypes.LVL]);
-			//joLabel.text = string.Format("{0}", obj.GetComponentInChildren<Perk>().perkName);
+			joLabel.text = string.Format("{0}", obj.GetComponentInChildren<PerkCatalog>().transform.GetChild(0).name.First().ToString().ToUpper() + obj.GetComponentInChildren<PerkCatalog>().transform.GetChild(0).name.Substring(1).ToLower());
 			raLabel.text = string.Format("{0}", obj.GetComponentInChildren<Race>().raceName);
 		}
 	}

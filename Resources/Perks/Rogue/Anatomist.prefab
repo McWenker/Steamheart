@@ -56,4 +56,4 @@ MonoBehaviour:
     m_values: 0700000002000000
   perkName: Anatomist
   learnedAbilities:
-  - {fileID: 0}
+  - {fileID: 114338968597340766, guid: e7e452f080f7a87438dbdf2c502407d9, type: 2}

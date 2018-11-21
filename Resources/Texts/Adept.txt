@@ -1,12 +1,12 @@
-ADEPT - The basic elemental spellcaster. Has great versatility, but is extremely fragile.
+<b>ADEPT</b> - <i>The basic elemental spellcaster. Has great versatility, but is extremely fragile.</i>
 
-Stat Modifiers:
+<b>Stat Modifiers:</b>
 +10 MHP +20 MMP
 +5 MEL +10 MAG
 +5 DEF +8 MDF
 +1 MOV +1% CRIT
 
-Starting Abilities:
+<b>Starting Abilities:</b>
 -Ember
 -Icicle
 -Pebble

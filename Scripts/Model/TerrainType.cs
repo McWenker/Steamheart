@@ -9,4 +9,5 @@ public struct TerrainType
     public float height;
     public Color color;
     public Material material;
+    public GameObject[] obstacles;
 }

@@ -6,5 +6,5 @@ Starting Stats:
 +36 DEF +40 MDF 
 +95 SPD +4 MOV +4 JMP
 
-Specials:
+Specials (coming soon!):
 Insurgent - Grit damage reduced by 20% for each adjacent Vyrnian. Increases the range of beneficial auras and AoE effects by 1.

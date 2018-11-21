@@ -6,5 +6,5 @@ Starting Stats:
 +27 DEF +50 MDF 
 +110 SPD +5 MOV +6 JMP
 
-Specials:
+Specials (coming soon!):
 Wings - Allows flight.

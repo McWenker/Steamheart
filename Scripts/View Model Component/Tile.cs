@@ -9,15 +9,40 @@ public class Tile : MonoBehaviour
     public float height;
     public TerrainType terrain;
     public GameObject content;
+    public GameObject contentPrefab;
 
     [HideInInspector] public Tile prev;
     [HideInInspector] public int distance;
+
+    bool loadFromFile = false;
 
     public Vector3 center
     {
         get
         {
             return new Vector3(pos.x, (height * stepHeight) + .4f, pos.y);
+        }
+    }
+
+    void FetchObstacle()
+    {
+        int score = Random.Range(0, terrain.obstacles.Length * 5);
+        if(score < terrain.obstacles.Length)
+        {
+            PlaceObstacle(terrain.obstacles[score]);
+        }
+    }
+
+    void PlaceObstacle(GameObject obstacle)
+    {
+        contentPrefab = obstacle;
+        if(contentPrefab != null)
+        {
+            content = Instantiate(contentPrefab);
+            content.transform.parent = this.transform;
+            content.transform.localPosition = new Vector3(0, content.transform.localPosition.y, 0);
+            Quaternion rot = Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0));
+            content.transform.rotation = rot;
         }
     }
 
@@ -46,11 +71,16 @@ public class Tile : MonoBehaviour
         pos = p;
         height = h;
         terrain = t;
+        FetchObstacle();
         Match();
     }
 
-    public void Load(Vector3 v, TerrainType t)
+    public void Load(Vector3 v, TerrainType t, GameObject o)
     {
-        Load(new Point((int)v.x, (int)v.z), v.y, t);
+        pos = new Point((int)v.x, (int)v.z);
+        height = v.y;
+        terrain = t;
+        PlaceObstacle(o);
+        Match();
     }
 }

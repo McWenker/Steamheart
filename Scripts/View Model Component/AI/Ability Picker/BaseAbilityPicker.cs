@@ -24,6 +24,8 @@ public abstract class BaseAbilityPicker : MonoBehaviour
     #region Protected
     protected Ability Find (string abilityName)
     {
+        if (ac == null)
+            Start();
         for (int i = 0; i < ac.transform.childCount; ++i)
         {
             Transform category = ac.transform.GetChild(i);

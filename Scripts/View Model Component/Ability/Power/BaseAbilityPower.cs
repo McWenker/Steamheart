@@ -75,8 +75,15 @@ public abstract class BaseAbilityPower : MonoBehaviour
 
     bool IsMyEffect(object sender)
     {
+        if (this == null)
+            return false;
         MonoBehaviour obj = sender as MonoBehaviour;
-        return (obj != null && obj.transform.parent == transform);
+        if (obj != null)
+        {
+            if (obj.transform.parent == transform)
+                return true;
+        }
+        return false;
     }
 
     protected int GetAbilityPower()
