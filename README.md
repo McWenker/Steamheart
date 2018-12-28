@@ -1,5 +1,3 @@
-# SteamHeart
-
 ![logo](Assets/Textures/UI/LOGO.png ":)")
 
 Hello and welcome to SteamHeart, an upcoming indie RPGenre bender designed and developed by yours truly.
@@ -15,7 +13,7 @@ and, hopefully, bringing it into the modern era with procedurally generated maps
 
 The demo is currently available via Simmer.IO
 
-![[demo gif](DemoImages/AIitemsabilities.gif)](https://simmer.io/@McWenker/~fef8cab1-d84a-22f3-5e73-b31a69505c01)
+[![demo gif](DemoImages/AIitemsabilities.gif)](https://simmer.io/@McWenker/~fef8cab1-d84a-22f3-5e73-b31a69505c01)
 
 # Known issues
 	A few Abilities and Status Effects are not operating as fully intended
