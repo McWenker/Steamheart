@@ -13,19 +13,19 @@ and, hopefully, bringing it into the modern era with procedurally generated maps
 
 The demo is currently available via Simmer.IO
 
-[![demo gif](DemoImages/AIitemsabilities.gif)](https://simmer.io/@McWenker/~fef8cab1-d84a-22f3-5e73-b31a69505c01)
+[![demo gif](DemoImages/AIitemsabilities.gif)](https://simmer.io/@McWenker/~fef8cab1-d84a-22f3-5e73-b31a69505c01 "click the gif to be taken to the demo")
 
 # Known issues
-	A few Abilities and Status Effects are not operating as fully intended
+	-A few Abilities and Status Effects are not operating as fully intended
 		These include: Stun, Weaken
-	The numbers are too high!
+	-The numbers are too high!
 		Some classes are OP, have fun with that
-	Battle does not always end when it should
+	-Battle does not always end when it should
 		I mean that in two ways, sometimes it won't trigger the ending
-		Other times, it will crash for unknown reasons
-	No visual indicators of damage
-	Characters sometimes "unjump" tweening into the ground rather than up
-	Sometimes battle isn't visible after creating a character
+		yet other times, it will crash for unknown reasons
+	-No visual indicators of damage
+	-Characters sometimes "unjump" tweening into the ground rather than up
+	-Sometimes battle isn't visible after creating a character
 
 All other issues please send to entro@chaosindivide.com or contact me via other known means
 
